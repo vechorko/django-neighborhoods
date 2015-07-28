@@ -4,6 +4,7 @@ from django.contrib.gis.db import models
 
 logger = logging.getLogger('neighborhoods.models')
 
+
 class NeighborhoodSource(models.Model):
     name = models.CharField(
             max_length=255,
@@ -14,8 +15,9 @@ class NeighborhoodSource(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Neighborhood(models.Model):
-    source = models.ForeignKey(NeighborhoodSource)
+    source = models.ForeignKey(NeighborhoodSource, null=True, blank=True)
     state = models.CharField(
             max_length=2,
             db_index=True,
@@ -30,7 +32,7 @@ class Neighborhood(models.Model):
             geography=True,
             spatial_index=True
             )
-    region_id = models.FloatField()
+    region_id = models.FloatField(null=True, blank=True)
 
     objects = models.GeoManager()
 
