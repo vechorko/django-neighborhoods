@@ -18,7 +18,7 @@ class NeighborhoodShapefileImporter(object):
     def __init__(self, url):
         self.url = url
 
-    @transaction.commit_on_success
+    @transaction.atomic
     def process(self):
         shapefile_dir = self._get_temporary_shapefile_dir_from_url(self.url)
         self._insert_from_shapefile(shapefile_dir)
